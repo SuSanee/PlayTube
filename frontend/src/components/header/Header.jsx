@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const handleSignIn = () => {
@@ -16,7 +17,7 @@ const Header = () => {
   };
 
   const handleUserProfile = () => {
-    navigate(`/${user?.username}`)
+    navigate(`/${currentUser?.username}`)
   }
 
   return (
@@ -57,18 +58,18 @@ const Header = () => {
           type="button"
           className="inline-flex rounded-full bg-white text-black px-2 py-1 text-md font-semibold hover:bg-neutral-200"
         >
-          <div className="flex gap-1 bg-white items-center">
+          <div className="flex gap-1 items-center">
             <img src={plusIcon} aria-label="Plus" className="w-7 h-7" />
             <span>Create</span>
           </div>
         </button>
-        {isAuthenticated ? (
+        {isAuthenticated && currentUser ? (
           <button
             type="button"
             className="h-10 w-10 rounded-full bg-linear-to-br from-neutral-700 to-neutral-500"
             onClick={handleUserProfile}
           >
-            <img src={user.avatar} aria-label="Profile" className="rounded-full cursor-pointer"/>
+            <img src={currentUser.avatar} aria-label="Profile" className="rounded-full cursor-pointer w-full h-full object-cover"/>
           </button>
         ) : (
           <button

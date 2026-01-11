@@ -3,11 +3,13 @@ import homeInactiveIcon from "../../assets/icons/home_outline_icon.svg";
 import historyIcon from "../../assets/icons/history_icon.svg";
 import settingIcon from "../../assets/icons/setting_icon.svg";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const topNavigationInfo = [
   {
     label: "Home",
-    to: "/home",
+    to: "/",
     icons: {
       active: homeActiveIcon,
       inactive: homeInactiveIcon,
@@ -25,41 +27,50 @@ const topNavigationInfo = [
 
 const Sidebar = () => {
   const isSidebarOpen = useSelector((state) => state.sidebar.isSidebarOpen);
+  const [currentTab, setCurrentTab] = useState("Home")
+//   const location = useLocation();
+
+//   useEffect(() => {
+//   const activeTab = topNavigationInfo.find(item => item.to === location.pathname);
+//   if (activeTab && currentTab !== activeTab.label) {
+//     setCurrentTab(activeTab.label);
+//   }
+// }, [location.pathname, currentTab]);
 
   return (
     <>
       <div
-        className={`h-full py-7 flex flex-col gap-5 text-white justify-between shrink-0 ${
-          isSidebarOpen ? "w-55 px-6" : "w-20 px-5"
+        className={`h-full p-2 flex flex-col gap-5 text-white justify-between shrink-0 mr-2 ${
+          isSidebarOpen ? "w-50" : "w-20"
         }`}
       >
         {/* top navigation */}
         <div
-          className={`${
-            isSidebarOpen ? "items-start" : "items-center"
-          } flex flex-col gap-6`}
+          className={`items-center flex flex-col gap-4 py-3`}
         >
           {topNavigationInfo.map((element) => {
             return (
-              <div
-                key={element.label}
-                className={`flex ${
-                  isSidebarOpen ? "gap-5" : "flex-col gap-2"
-                } items-center`}
-              >
-                <img
-                  src={element.icons.active}
-                  alt={element.label}
-                  className="w-7 h-7"
-                />
-                <span
-                  className={`${
-                    isSidebarOpen ? "text-lg font-medium" : "text-sm"
-                  }`}
+              <Link key={element.label} to={element.to} className="block w-full">
+                <div
+                  className={`flex py-2 ${
+                    isSidebarOpen ? "gap-5 px-4" : "flex-col gap-2 px-3"
+                  } items-center ${currentTab === element.label ? 'bg-[var(--dark-grey-color)] rounded-lg' : ''}`}
+                  onClick={() => setCurrentTab(element.label)}
                 >
-                  {element.label}
-                </span>
-              </div>
+                  <img
+                    src={currentTab === element.label ? element.icons.active : element.icons.inactive}
+                    alt={element.label}
+                    className="w-7 h-7"
+                  />
+                  <span
+                    className={`${
+                      isSidebarOpen ? "text-base font-medium" : "text-xs"
+                    }`}
+                  >
+                    {element.label}
+                  </span>
+                </div>
+              </Link>
             );
           })}
         </div>
@@ -67,12 +78,12 @@ const Sidebar = () => {
         <div>
           <div
             className={`flex ${
-              isSidebarOpen ? "gap-5" : "flex-col gap-2"
+              isSidebarOpen ? "gap-5 px-4" : "flex-col gap-2 px-3"
             } items-center`}
           >
             <img src={settingIcon} alt={"Settings"} className="w-7 h-7" />
             <span
-              className={`${isSidebarOpen ? "text-lg font-medium" : "text-sm"}`}
+              className={`${isSidebarOpen ? "text-base font-medium" : "text-xs"}`}
             >
               Settings
             </span>

@@ -35,11 +35,11 @@ export const googleLogin = createAsyncThunk(
 );
 
 // Async thunk for fetching current user
-export const fetchUser = createAsyncThunk(
+export const restoreSession = createAsyncThunk(
   "auth/fetchUser",
   async (__, { rejectWithValue }) => {
     try {
-      const response = await apiRequest("/auth/current-user");
+      const response = await apiRequest("/auth/current_user");
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message || "Not Aunthenticated");
@@ -59,10 +59,7 @@ export const logout = createAsyncThunk(
   }
 );
 
-
-
 const initialState = {
-  user: null,
   loading: false,
   isAuthenticated: false,
   error: null,
@@ -83,9 +80,8 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state) => {
         state.loading = false;
-        state.user = action.payload;
         state.isAuthenticated = true;
       })
       .addCase(login.rejected, (state, action) => {
@@ -97,9 +93,8 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(googleLogin.fulfilled, (state, action) => {
+      .addCase(googleLogin.fulfilled, (state) => {
         state.loading = false;
-        state.user = action.payload;
         state.isAuthenticated = true;
       })
       .addCase(googleLogin.rejected, (state, action) => {
@@ -107,24 +102,21 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       // current user
-      .addCase(fetchUser.pending, (state) => {
+      .addCase(restoreSession.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchUser.fulfilled, (state, action) => {
+      .addCase(restoreSession.fulfilled, (state) => {
         state.loading = false;
-        state.user = action.payload;
         state.isAuthenticated = true;
       })
-      .addCase(fetchUser.rejected, (state) => {
+      .addCase(restoreSession.rejected, (state) => {
         state.loading = false;
-        state.user = null;
         state.isAuthenticated = false;
       })
       // Logout
       .addCase(logout.fulfilled, (state) => {
         state.loading = false;
-        state.user = null;
         state.isAuthenticated = false;
       });
   },

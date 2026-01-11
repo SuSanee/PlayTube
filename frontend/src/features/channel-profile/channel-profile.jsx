@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { apiRequest } from "../../utility/apiRequest";
 
-const UserProfile = () => {
+const ChannelProfile = () => {
   const { username } = useParams();
-  const { user } = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.user);
   const [profile, setProfile] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -23,7 +24,10 @@ const UserProfile = () => {
     }
   }, [username]);
 
-  const isOwnProfile = user?.username === profile?.username;
+  const isOwnProfile = currentUser?.username === profile?.username;
+  const handleChannelCustomization = () => {
+    navigate("/profile/edit")
+  }
 
   return (
     <>
@@ -49,7 +53,7 @@ const UserProfile = () => {
                   <span>{profile.subscribedToCount} Subscribed</span>
                 </div>
                 {isOwnProfile ? (
-                  <button className="w-50 bg-(--dark-grey-color) py-2 rounded-4xl">
+                  <button className="w-50 bg-(--dark-grey-color) py-2 rounded-4xl hover:cursor-pointer" onClick={handleChannelCustomization}>
                     Customise Channel
                   </button>
                 ) : (
@@ -130,4 +134,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default ChannelProfile;

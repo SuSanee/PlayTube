@@ -3,7 +3,8 @@ import Layout from "../layout/Layout";
 import Home from "../features/home/home";
 import Login from "../features/login/Login";
 import Signup from "../signup/Signup";
-import UserProfile from "../features/user-profile/user-profile.jsx";
+import ChannelProfile from "../features/channel-profile/channel-profile.jsx";
+import ChannelCustomization from "../features/channel-customization/channel-customization.js";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
       },
       {
         path: ":username",
-        element: <UserProfile />,
+        element: <ChannelProfile />,
+      },
+      {
+        path: "profile/edit",
+        element: <ChannelCustomization />,
       },
     ],
   },

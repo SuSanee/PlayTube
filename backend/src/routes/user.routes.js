@@ -11,7 +11,7 @@ import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
-;
+
 router.route("/change_password").post(verifyJWT, changeCurrentPassword);
 router.route("/update_user").patch(verifyJWT, updateUserDetails);
 router

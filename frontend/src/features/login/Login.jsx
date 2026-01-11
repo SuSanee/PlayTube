@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login, clearError, googleLogin } from "../../store/slices/authSlice";
+import { login, clearError, googleLogin, restoreSession } from "../../store/slices/authSlice";
 import { Link } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 
@@ -18,6 +18,7 @@ const Login = () => {
 
     try {
       await dispatch(login({ email, password })).unwrap();
+      await dispatch(restoreSession()).unwrap();
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -27,6 +28,7 @@ const Login = () => {
   const loginWithGoogle = async (credentialResponse) => {
     try {
       await dispatch(googleLogin(credentialResponse.credential)).unwrap();
+      await dispatch(restoreSession()).unwrap();
       navigate("/");
     } catch (error) {
       console.error("Google login failed:", error);
