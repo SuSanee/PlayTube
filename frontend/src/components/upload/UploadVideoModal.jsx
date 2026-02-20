@@ -158,8 +158,8 @@ const UploadVideoModal = () => {
                     {step === 1 && (
                         <div
                             className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed transition-all duration-300 py-16 px-6 cursor-pointer ${dragActive
-                                    ? "border-red-500 bg-red-500/10"
-                                    : "border-neutral-700 hover:border-neutral-500 bg-neutral-800/30"
+                                ? "border-red-500 bg-red-500/10"
+                                : "border-neutral-700 hover:border-neutral-500 bg-neutral-800/30"
                                 }`}
                             onDragEnter={handleDrag}
                             onDragLeave={handleDrag}
@@ -268,8 +268,8 @@ const UploadVideoModal = () => {
                                     placeholder="Add a title that describes your video"
                                     maxLength={100}
                                     className={`w-full rounded-lg bg-neutral-800 border px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none transition-all duration-200 focus:ring-2 focus:ring-red-500/30 ${errors.title
-                                            ? "border-red-500"
-                                            : "border-neutral-700 focus:border-neutral-500"
+                                        ? "border-red-500"
+                                        : "border-neutral-700 focus:border-neutral-500"
                                         }`}
                                 />
                                 <div className="flex justify-between mt-1">
@@ -294,8 +294,8 @@ const UploadVideoModal = () => {
                                     maxLength={5000}
                                     rows={4}
                                     className={`w-full rounded-lg bg-neutral-800 border px-4 py-3 text-sm text-white placeholder:text-neutral-500 outline-none resize-none transition-all duration-200 focus:ring-2 focus:ring-red-500/30 ${errors.description
-                                            ? "border-red-500"
-                                            : "border-neutral-700 focus:border-neutral-500"
+                                        ? "border-red-500"
+                                        : "border-neutral-700 focus:border-neutral-500"
                                         }`}
                                 />
                                 <div className="flex justify-between mt-1">
@@ -317,8 +317,8 @@ const UploadVideoModal = () => {
                                     {/* Thumbnail preview / upload box */}
                                     <div
                                         className={`relative w-40 h-24 rounded-lg border-2 border-dashed flex items-center justify-center cursor-pointer overflow-hidden transition-all duration-200 group ${errors.thumbnail
-                                                ? "border-red-500 bg-red-500/5"
-                                                : "border-neutral-700 hover:border-neutral-500 bg-neutral-800/50"
+                                            ? "border-red-500 bg-red-500/5"
+                                            : "border-neutral-700 hover:border-neutral-500 bg-neutral-800/50"
                                             }`}
                                         onClick={() => thumbnailInputRef.current?.click()}
                                     >
@@ -474,19 +474,6 @@ const UploadVideoModal = () => {
                 </div>
             </div>
 
-            {/* Keyframe animation */}
-            <style>{`
-        @keyframes modalIn {
-          from {
-            opacity: 0;
-            transform: scale(0.95) translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-          }
-        }
-      `}</style>
         </div>
     );
 };
