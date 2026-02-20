@@ -36,7 +36,7 @@ const Signup = () => {
     try {
       setLoading(true);
 
-      await apiRequest("/users/register", {
+      await apiRequest("/auth/register", {
         method: "POST",
         body: formData,
       });

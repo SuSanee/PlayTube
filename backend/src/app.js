@@ -1,6 +1,9 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import userRouter from "./routes/user.routes.js";
+import authRouter from "./routes/auth.routes.js";
+import videoRouter from "./routes/video.routes.js";
 
 const app = express();
 
@@ -17,12 +20,9 @@ app.use(express.static("public"));
 app.use(express.json({ limit: "16kb" }));
 app.use(cookieParser());
 
-// import router
-import userRouter from "./routes/user.routes.js";
-import authRouter from "./routes/auth.routes.js";
-
 // routes declaration
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/video", videoRouter)
 
 export { app };
