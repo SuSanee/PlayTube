@@ -5,15 +5,15 @@ import { apiRequest } from "../../utility/apiRequest";
 import { useNavigate } from "react-router-dom";
 
 const ChannelCustomization = () => {
-  const { currentUser } = useSelector((state: any) => state.user);
-  const [fullName, setFullName] = useState<string>(currentUser?.fullName ?? "");
-  const [username, setUsername] = useState<string>(currentUser?.username ?? "");
+  const { currentUser } = useSelector((state) => state.user);
+  const [fullName, setFullName] = useState(currentUser?.fullName ?? "");
+  const [username, setUsername] = useState(currentUser?.username ?? "");
   const navigate = useNavigate();
 
   const isDisabled =
     !currentUser ||
     (fullName === currentUser.fullName && username === currentUser.username);
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
 
   const handlePublish = async () => {
     try {
@@ -56,11 +56,10 @@ const ChannelCustomization = () => {
               Cancel
             </button>
             <button
-              className={`px-6 py-2 rounded-3xl hover:bg-[#4f4f4f] transition ${
-                isDisabled
+              className={`px-6 py-2 rounded-3xl hover:bg-[#4f4f4f] transition ${isDisabled
                   ? "bg-[var(--dark-grey-color)] text-white"
                   : "bg-white text-black font-semibold"
-              }`}
+                }`}
               disabled={isDisabled}
               onClick={handlePublish}
             >
